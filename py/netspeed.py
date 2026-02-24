@@ -24,16 +24,17 @@ frame_idx = 0
 
 def spin(text):
     global frame_idx
+    stop_event = threading.Event()
     def worker():
         global frame_idx
-        while True:
+        while not stop_event.is_set():
             sys.stdout.write(f"\r{Fore.CYAN}{frames[frame_idx]} {text}")
             sys.stdout.flush()
             frame_idx = (frame_idx + 1) % len(frames)
             time.sleep(0.08)
     t = threading.Thread(target=worker, daemon=True)
     t.start()
-    return t
+    return stop_event
 
 def clear():
     sys.stdout.write('\r' + ' ' * 60 + '\r')
@@ -96,13 +97,13 @@ def download_test():
             continue
     
     clear()
-    return round(best_speed, 2)
+    return float(f"{best_speed:.2f}")
 
 def print_header():
     print()
-    print(f"{Fore.CYAN}{Style.BRIGHT}╔════════════════════════════════════════╗")
-    print(f"{Fore.CYAN}{Style.BRIGHT}║{Style.BRIGHT}{'         NETSPEED CLI v1.0         '}{Fore.CYAN}{Style.BRIGHT}║")
-    print(f"{Fore.CYAN}{Style.BRIGHT}╚════════════════════════════════════════╝")
+    print(f"{Fore.CYAN}{Style.BRIGHT}   ╔════════════════════════════════════════╗")
+    print(f"{Fore.CYAN}{Style.BRIGHT}   ║{Fore.WHITE}{Style.BRIGHT}{'           NETSPEED CLI v1.0            '}{Fore.CYAN}{Style.BRIGHT}║")
+    print(f"{Fore.CYAN}{Style.BRIGHT}   ╚════════════════════════════════════════╝")
     print()
 
 def print_result(type_, value, icon):
@@ -112,34 +113,39 @@ def print_result(type_, value, icon):
         'ping': Fore.YELLOW
     }
     color = colors.get(type_, Fore.WHITE)
+    label = type_.upper()
+    border_line = "─" * (31 - len(label))
+    result_str = f"{icon} {value}"
+    value_padding = " " * max(0, 31 - len(result_str))
+    
     print()
-    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────────────┐")
-    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (25 - len(str(value))) + f"{Fore.WHITE}│")
-    print(f"  {Fore.WHITE}└" + "─" * 36 + "┘")
+    print(f"   {Fore.WHITE}┌─ {label} {border_line}┐")
+    print(f"   {Fore.WHITE}│ {color}{result_str}{value_padding}{Fore.WHITE}│")
+    print(f"   {Fore.WHITE}└" + "─" * 39 + "┘")
 
 def main():
     print_header()
-    print(f"{Fore.GRAY}  Starting speed test...\n")
+    print(f"{Fore.WHITE}   Starting speed test...\n")
     
     spinner = spin("Measuring ping...")
     ping = int(ping_test())
-    spinner.cancel()
+    spinner.set()
     clear()
     print_result('ping', f"{ping} ms", '⚡')
     
     spinner = spin("Testing download speed...")
     download = download_test()
-    spinner.cancel()
+    spinner.set()
     print_result('download', f"{download} Mbps", '📥')
     
     spinner = spin("Testing upload speed...")
-    upload = round(download * 0.3, 2)
-    spinner.cancel()
+    upload = f"{float(download) * 0.3:.2f}"
+    spinner.set()
     clear()
     print_result('upload', f"{upload} Mbps", '📤')
     
     print()
-    print(f"{Fore.GRAY}  " + "─" * 40)
+    print(f"{Fore.WHITE}   " + "─" * 40)
     print()
 
 if __name__ == '__main__':

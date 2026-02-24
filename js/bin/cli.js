@@ -107,9 +107,9 @@ async function pingTest() {
 
 function printHeader() {
   console.log();
-  console.log(chalk.cyan.bold('┌──────────────────┐'));
-  console.log(chalk.cyan.bold('│') + chalk.white.bold(' NETSPEED CLI v1 ') + chalk.cyan.bold('│'));
-  console.log(chalk.cyan.bold('└──────────────────┘'));
+  console.log(chalk.cyan.bold('   ╔════════════════════════════════════════╗'));
+  console.log(chalk.cyan.bold('   ║') + chalk.white.bold('           NETSPEED CLI v1.0            ') + chalk.cyan.bold('║'));
+  console.log(chalk.cyan.bold('   ╚════════════════════════════════════════╝'));
   console.log();
 }
 
@@ -120,10 +120,15 @@ function printResult(type, value, icon) {
     ping: chalk.yellow
   };
   
+  const label = type.toUpperCase();
+  const borderLine = '─'.repeat(31 - label.length);
+  const resultStr = `${icon} ${value}`;
+  const valuePadding = ' '.repeat(Math.max(0, 31 - resultStr.length));
+  
   console.log();
-  console.log(`  ${chalk.white('┌─ ' + type.toUpperCase() + ' ─────────────┐')}`);
-  console.log(chalk.white('  │ ') + colors[type](`${icon} ${value}`) + ' '.repeat(15 - value.toString().length) + chalk.white('│'));
-  console.log(chalk.white('  └' + '─'.repeat(20) + '┘'));
+  console.log(`   ${chalk.white('┌─ ' + label + ' ' + borderLine + '┐')}`);
+  console.log(chalk.white('   │ ') + colors[type](resultStr) + valuePadding + chalk.white('│'));
+  console.log(chalk.white('   └' + '─'.repeat(39) + '┘'));
 }
 
 async function main() {
@@ -150,7 +155,7 @@ async function main() {
   printResult('upload', `${upload} Mbps`, '📤');
   
   console.log();
-  console.log(chalk.gray('  ' + '─'.repeat(40)));
+  console.log(chalk.gray('   ' + '─'.repeat(40)));
   console.log();
 }
 
