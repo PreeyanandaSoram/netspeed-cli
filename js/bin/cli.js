@@ -107,9 +107,9 @@ async function pingTest() {
 
 function printHeader() {
   console.log();
-  console.log(chalk.cyan.bold('╔════════════════════════════════════════╗'));
-  console.log(chalk.cyan.bold('║') + chalk.white.bold('         NETSPEED CLI v1.0         ') + chalk.cyan.bold('║'));
-  console.log(chalk.cyan.bold('╚════════════════════════════════════════╝'));
+  console.log(chalk.cyan.bold('┌──────────────────┐'));
+  console.log(chalk.cyan.bold('│') + chalk.white.bold(' NETSPEED CLI v1 ') + chalk.cyan.bold('│'));
+  console.log(chalk.cyan.bold('└──────────────────┘'));
   console.log();
 }
 
@@ -121,9 +121,9 @@ function printResult(type, value, icon) {
   };
   
   console.log();
-  console.log(`  ${chalk.white('┌─ ' + type.toUpperCase() + ' ─────────────────────┐')}`);
-  console.log(chalk.white('  │ ') + colors[type](`${icon} ${value}`) + ' '.repeat(25 - value.toString().length) + chalk.white('│'));
-  console.log(chalk.white('  └' + '─'.repeat(36) + '┘'));
+  console.log(`  ${chalk.white('┌─ ' + type.toUpperCase() + ' ─────────────┐')}`);
+  console.log(chalk.white('  │ ') + colors[type](`${icon} ${value}`) + ' '.repeat(15 - value.toString().length) + chalk.white('│'));
+  console.log(chalk.white('  └' + '─'.repeat(20) + '┘'));
 }
 
 async function main() {
