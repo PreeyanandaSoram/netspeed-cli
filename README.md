@@ -2,7 +2,7 @@
 
 ```text
 ╔════════════════════════════════════════╗
-║           NETSPEED CLI v1.0            ║
+║        NETSPEED_TEST_CLI v1.4.0       ║
 ╚════════════════════════════════════════╝
 ```
 
@@ -12,7 +12,7 @@ A blazing fast internet speed test CLI tool with a beautiful terminal UI.
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/netspeed-test-cli" alt="npm version">
-  <img src="https://img.shields.io/pypi/v/netspeed" alt="PyPI version">
+  <img src="https://img.shields.io/pypi/v/netspeed-test" alt="PyPI version">
   <img src="https://img.shields.io/github/license/PreeyanandaSoram/netspeed-cli" alt="license">
 </p>
 
@@ -59,7 +59,7 @@ netspeed
 
 ```
   ┌──────────────────────────┐
-  │      NETSPEED CLI v1      │
+  │   NETSPEED_TEST_CLI v1   │
   └──────────────────────────┘
 
   Starting speed test...

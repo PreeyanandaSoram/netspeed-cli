@@ -17,7 +17,7 @@ except ImportError:
 
 MB = 1024 * 1024
 TEST_DURATION = 5
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 
 frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 frame_idx = 0
@@ -94,7 +94,7 @@ def download_test():
 def print_header():
     print()
     print(f"{Fore.CYAN}{Style.BRIGHT}  ┌──────────────────────────┐")
-    print(f"{Fore.CYAN}{Style.BRIGHT}  │{Style.BRIGHT}      NETSPEED CLI v1      {Fore.CYAN}{Style.BRIGHT}│")
+    print(f"{Fore.CYAN}{Style.BRIGHT}  │{Style.BRIGHT}  NETSPEED_TEST_CLI v1  {Fore.CYAN}{Style.BRIGHT}│")
     print(f"{Fore.CYAN}{Style.BRIGHT}  └──────────────────────────┘")
     print()
 

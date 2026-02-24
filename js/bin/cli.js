@@ -108,7 +108,7 @@ async function pingTest() {
 function printHeader() {
   console.log();
   console.log(chalk.cyan.bold('  ┌──────────────────────────┐'));
-  console.log(chalk.cyan.bold('  │') + chalk.white.bold('      NETSPEED CLI v1      ') + chalk.cyan.bold('│'));
+  console.log(chalk.cyan.bold('  │') + chalk.white.bold('  NETSPEED_TEST_CLI v1  ') + chalk.cyan.bold('│'));
   console.log(chalk.cyan.bold('  └──────────────────────────┘'));
   console.log();
 }
@@ -209,7 +209,7 @@ function showVersion() {
   console.log(chalk.white('  ┌──────────────────────────┐'));
   console.log(chalk.white('  │') + chalk.cyan('       VERSION INFO       ') + chalk.white('│'));
   console.log(chalk.white('  ├──────────────────────────┤'));
-  console.log(chalk.white('  │  netspeed-cli: ') + chalk.green('1.1.0') + chalk.white(' '.repeat(14) + '│'));
+  console.log(chalk.white('  │  netspeed-cli: ') + chalk.green('1.4.0') + chalk.white(' '.repeat(14) + '│'));
   console.log(chalk.white('  │  Node.js:       ') + chalk.green(process.version) + chalk.white(' '.repeat(14 - process.version.length) + '│'));
   console.log(chalk.white('  └──────────────────────────┘'));
   console.log();

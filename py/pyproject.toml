@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "netspeed-test"
-version = "1.0.0"
+version = "1.4.0"
 description = "Internet speed test CLI tool"
 authors = [{name = "Preeyananda Soram"}]
 license = {text = "MIT"}
