@@ -190,10 +190,13 @@ async function updatePackage() {
   const { execSync } = await import('child_process');
   
   try {
-    execSync('npm install -g netspeed-test-cli', { stdio: 'inherit' });
+    execSync('npm install -g netspeed-test-cli --force', { stdio: 'inherit' });
     console.log(chalk.green('\n  ✓ Update successful!'));
   } catch (e) {
-    console.log(chalk.red('\n  ✗ Update failed. Try running: npm install -g netspeed-test-cli'));
+    console.log(chalk.red('\n  ✗ Update failed.'));
+    console.log(chalk.gray('  Try running manually:'));
+    console.log(chalk.gray('  npm uninstall -g netspeed-test-cli'));
+    console.log(chalk.gray('  npm install -g netspeed-test-cli'));
   }
   
   console.log(chalk.gray('\n  Press ENTER to continue...'));
