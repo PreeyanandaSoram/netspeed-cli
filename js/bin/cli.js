@@ -108,7 +108,7 @@ async function pingTest() {
 function printHeader() {
   console.log();
   console.log(chalk.cyan.bold('  ┌──────────────────────────┐'));
-  console.log(chalk.cyan.bold('  │') + chalk.white.bold('  NETSPEED_TEST_CLI v1  ') + chalk.cyan.bold('│'));
+  console.log(chalk.cyan.bold('  │') + chalk.white.bold(' NETSPEED_TEST_CLI v1.4.0 ') + chalk.cyan.bold('│'));
   console.log(chalk.cyan.bold('  └──────────────────────────┘'));
   console.log();
 }

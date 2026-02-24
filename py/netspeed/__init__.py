@@ -94,7 +94,7 @@ def download_test():
 def print_header():
     print()
     print(f"{Fore.CYAN}{Style.BRIGHT}  ┌──────────────────────────┐")
-    print(f"{Fore.CYAN}{Style.BRIGHT}  │{Style.BRIGHT}  NETSPEED_TEST_CLI v1  {Fore.CYAN}{Style.BRIGHT}│")
+    print(f"{Fore.CYAN}{Style.BRIGHT}  │{Style.BRIGHT} NETSPEED_TEST_CLI v1.4.0 {Fore.CYAN}{Style.BRIGHT}│")
     print(f"{Fore.CYAN}{Style.BRIGHT}  └──────────────────────────┘")
     print()
 

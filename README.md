@@ -2,7 +2,7 @@
 
 ```text
 ╔════════════════════════════════════════╗
-║        NETSPEED_TEST_CLI v1.4.0       ║
+║       NETSPEED_TEST_CLI v1.4.0       ║
 ╚════════════════════════════════════════╝
 ```
 
@@ -59,7 +59,7 @@ netspeed
 
 ```
   ┌──────────────────────────┐
-  │   NETSPEED_TEST_CLI v1   │
+  │ NETSPEED_TEST_CLI v1.4.0 │
   └──────────────────────────┘
 
   Starting speed test...
