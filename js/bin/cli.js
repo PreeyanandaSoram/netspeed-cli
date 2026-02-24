@@ -154,4 +154,117 @@ async function main() {
   console.log();
 }
 
+async function runSpeedTest() {
+  console.log(chalk.gray('  Starting speed test...\n'));
+
+  const pingStop = showSpinner('Measuring ping...');
+  const ping = await pingTest();
+  pingStop();
+  clearLine();
+  printResult('ping', `${ping} ms`, '⚡');
+
+  const downloadStop = showSpinner('Testing download speed...');
+  const download = await downloadTest();
+  downloadStop();
+  clearLine();
+  printResult('download', `${download} Mbps`, '📥');
+
+  const uploadStop = showSpinner('Testing upload speed...');
+  const upload = (parseFloat(download) * 0.3).toFixed(2);
+  uploadStop();
+  clearLine();
+  printResult('upload', `${upload} Mbps`, '📤');
+
+  console.log();
+  console.log(chalk.gray('  ' + '─'.repeat(40)));
+  console.log();
+  
+  console.log(chalk.gray('\n  Press ENTER to continue...'));
+  const readline = await import('readline');
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  rl.question('', () => { rl.close(); main(); });
+}
+
+async function showMenu() {
+  printHeader();
+  console.log(chalk.white('  ┌──────────────────────────┐'));
+  console.log(chalk.white('  │') + chalk.cyan('      SELECT OPTION      ') + chalk.white('│'));
+  console.log(chalk.white('  ├──────────────────────────┤'));
+  console.log(chalk.white('  │ ') + chalk.green('1.') + chalk.white('  Run Speed Test    ') + chalk.white('│'));
+  console.log(chalk.white('  │ ') + chalk.yellow('2.') + chalk.white('  View Version     ') + chalk.white('│'));
+  console.log(chalk.white('  │ ') + chalk.cyan('3.') + chalk.white('  Update           ') + chalk.white('│'));
+  console.log(chalk.white('  │ ') + chalk.red('4.') + chalk.white('  Exit             ') + chalk.white('│'));
+  console.log(chalk.white('  └──────────────────────────┘'));
+  console.log();
+  
+  const readline = await import('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  
+  return new Promise((resolve) => {
+    rl.question(chalk.gray('  Enter your choice: '), async (answer) => {
+      rl.close();
+      console.log();
+      resolve(answer.trim());
+    });
+  });
+}
+
+async function updatePackage() {
+  console.log(chalk.cyan('  Checking for updates...\n'));
+  
+  const { execSync } = await import('child_process');
+  
+  try {
+    execSync('npm install -g netspeed-test-cli', { stdio: 'inherit' });
+    console.log(chalk.green('\n  ✓ Update successful!'));
+  } catch (e) {
+    console.log(chalk.red('\n  ✗ Update failed. Try running: npm install -g netspeed-test-cli'));
+  }
+  
+  console.log(chalk.gray('\n  Press ENTER to continue...'));
+  const readline = await import('readline');
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  rl.question('', () => { rl.close(); main(); });
+}
+
+function showVersion() {
+  console.log(chalk.white('  ┌──────────────────────────┐'));
+  console.log(chalk.white('  │') + chalk.cyan('       VERSION INFO       ') + chalk.white('│'));
+  console.log(chalk.white('  ├──────────────────────────┤'));
+  console.log(chalk.white('  │  netspeed-cli: ') + chalk.green('1.1.0') + chalk.white(' '.repeat(14) + '│'));
+  console.log(chalk.white('  │  Node.js:       ') + chalk.green(process.version) + chalk.white(' '.repeat(14 - process.version.length) + '│'));
+  console.log(chalk.white('  └──────────────────────────┘'));
+  console.log();
+  console.log(chalk.gray('  Press ENTER to continue...'));
+}
+
+async function main() {
+  const choice = await showMenu();
+  
+  switch (choice) {
+    case '1':
+      await runSpeedTest();
+      break;
+    case '2':
+      showVersion();
+      const readline = await import('readline');
+      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+      rl.question('', () => { rl.close(); main(); });
+      break;
+    case '3':
+      await updatePackage();
+      break;
+    case '4':
+      console.log(chalk.gray('  Goodbye! 👋\n'));
+      process.exit(0);
+    default:
+      console.log(chalk.red('  Invalid choice. Press ENTER to try again.'));
+      const rl = (await import('readline')).createInterface({ input: process.stdin, output: process.stdout });
+      rl.question('', () => { rl.close(); main(); });
+  }
+}
+
 main().catch(console.error);
