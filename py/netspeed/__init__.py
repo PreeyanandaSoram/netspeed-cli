@@ -93,18 +93,18 @@ def download_test():
 
 def print_header():
     print()
-    print(f"{Fore.CYAN}{Style.BRIGHT}┌──────────────────┐")
-    print(f"{Fore.CYAN}{Style.BRIGHT}│{Style.BRIGHT} NETSPEED CLI v1 {Fore.CYAN}{Style.BRIGHT}│")
-    print(f"{Fore.CYAN}{Style.BRIGHT}└──────────────────┘")
+    print(f"{Fore.CYAN}{Style.BRIGHT}  ┌──────────────────────────┐")
+    print(f"{Fore.CYAN}{Style.BRIGHT}  │{Style.BRIGHT}      NETSPEED CLI v1      {Fore.CYAN}{Style.BRIGHT}│")
+    print(f"{Fore.CYAN}{Style.BRIGHT}  └──────────────────────────┘")
     print()
 
 def print_result(type_, value, icon):
     colors = {'download': Fore.GREEN, 'upload': Fore.MAGENTA, 'ping': Fore.YELLOW}
     color = colors.get(type_, Fore.WHITE)
     print()
-    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────┐")
-    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (15 - len(str(value))) + f"{Fore.WHITE}│")
-    print(f"  {Fore.WHITE}└" + "─" * 20 + "┘")
+    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────────────┐")
+    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (25 - len(str(value))) + f"{Fore.WHITE}│")
+    print(f"  {Fore.WHITE}└" + "─" * 36 + "┘")
 
 def show_menu():
     print_header()
