@@ -7,7 +7,7 @@ A blazing fast internet speed test CLI tool with a beautiful terminal UI.
 <p align="center">
   <img src="https://img.shields.io/npm/v/netspeed-cli" alt="npm version">
   <img src="https://img.shields.io/pypi/v/netspeed" alt="PyPI version">
-  <img src="https://img.shields.io/github/license/Preeyananda/netspeed-cli" alt="license">
+  <img src="https://img.shields.io/github/license/PreeyanandaSoram/netspeed-cli" alt="license">
 </p>
 
 ## ✨ Features
@@ -39,14 +39,14 @@ netspeed
 ## 📸 Example Output
 
 ```
-┌──────────────────┐
-│ NETSPEED CLI v1 │
-└──────────────────┘
+  ┌──────────────────┐
+  │ NETSPEED CLI v1 │
+  └──────────────────┘
 
   Starting speed test...
 
   ┌─ PING ─────────────┐
-  │ ⚡ 45 ms            │
+  │ ⚡ 45 ms           |
   └────────────────────┘
 
   ┌─ DOWNLOAD ─────────┐
@@ -64,7 +64,7 @@ netspeed
 
 ### Node.js
 ```bash
-git clone https://github.com/Preeyananda/netspeed-cli.git
+git clone https://github.com/PreeyanandaSoram/netspeed-cli.git
 cd netspeed-cli/js
 npm install
 node bin/cli.js
@@ -72,7 +72,7 @@ node bin/cli.js
 
 ### Python
 ```bash
-git clone https://github.com/Preeyananda/netspeed-cli.git
+git clone https://github.com/PreeyanandaSoram/netspeed-cli.git
 cd netspeed-cli/py
 pip install -r requirements.txt
 python -m netspeed
