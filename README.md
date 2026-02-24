@@ -1,6 +1,6 @@
-# ╔════════════════════════════════════════╗
-# ║         NETSPEED CLI v1.0         ║
-# ╚════════════════════════════════════════╝
+# ┌──────────────────┐
+# │ NETSPEED CLI v1  │
+# └──────────────────┘
 
 A blazing fast internet speed test CLI tool with a beautiful terminal UI.
 
@@ -39,23 +39,23 @@ netspeed
 ## 📸 Example Output
 
 ```
-╔════════════════════════════════════════╗
-║         NETSPEED CLI v1.0         ║
-╚════════════════════════════════════════╝
+┌──────────────────┐
+│ NETSPEED CLI v1  │
+└──────────────────┘
 
   Starting speed test...
 
-  ┌─ PING ─────────────────────┐
-  │ ⚡ 45 ms                     │
-  └────────────────────────────────────┘
+  ┌─ PING ─────────┐
+  │ ⚡ 45 ms        │
+  └────────────────┘
 
-  ┌─ DOWNLOAD ─────────────────────┐
-  │ 📥 87.32 Mbps                  │
-  └────────────────────────────────────┘
+  ┌─ DOWNLOAD ─────┐
+  │ 📥 87.32 Mbps  │
+  └────────────────┘
 
-  ┌─ UPLOAD ─────────────────────┐
-  │ 📤 26.20 Mbps                 │
-  └────────────────────────────────────┘
+  ┌─ UPLOAD ───────┐
+  │ 📤 26.20 Mbps  │
+  └────────────────┘
 ```
 
 ## 🔧 Development
@@ -78,7 +78,7 @@ python -m netspeed
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see the [LICENSE](https://github.com/PreeyanandaSoram/netspeed-cli/blob/main/LICENSE) file.
 
 ---
 
