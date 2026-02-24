@@ -101,9 +101,9 @@ def download_test():
 
 def print_header():
     print()
-    print(f"{Fore.CYAN}{Style.BRIGHT}   ╔════════════════════════════════════════╗")
-    print(f"{Fore.CYAN}{Style.BRIGHT}   ║{Fore.WHITE}{Style.BRIGHT}{'           NETSPEED CLI v1.0            '}{Fore.CYAN}{Style.BRIGHT}║")
-    print(f"{Fore.CYAN}{Style.BRIGHT}   ╚════════════════════════════════════════╝")
+    print(f"{Fore.CYAN}{Style.BRIGHT}┌──────────────────┐")
+    print(f"{Fore.CYAN}{Style.BRIGHT}│{Fore.WHITE}{Style.BRIGHT} NETSPEED CLI v1 {Fore.CYAN}{Style.BRIGHT}│")
+    print(f"{Fore.CYAN}{Style.BRIGHT}└──────────────────┘")
     print()
 
 def print_result(type_, value, icon):
@@ -113,15 +113,10 @@ def print_result(type_, value, icon):
         'ping': Fore.YELLOW
     }
     color = colors.get(type_, Fore.WHITE)
-    label = type_.upper()
-    border_line = "─" * (31 - len(label))
-    result_str = f"{icon} {value}"
-    value_padding = " " * max(0, 31 - len(result_str))
-    
     print()
-    print(f"   {Fore.WHITE}┌─ {label} {border_line}┐")
-    print(f"   {Fore.WHITE}│ {color}{result_str}{value_padding}{Fore.WHITE}│")
-    print(f"   {Fore.WHITE}└" + "─" * 39 + "┘")
+    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────────────┐")
+    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (25 - len(str(value))) + f"{Fore.WHITE}│")
+    print(f"  {Fore.WHITE}└" + "─" * 36 + "┘")
 
 def main():
     print_header()
@@ -145,7 +140,7 @@ def main():
     print_result('upload', f"{upload} Mbps", '📤')
     
     print()
-    print(f"{Fore.WHITE}   " + "─" * 40)
+    print(f"{Fore.WHITE}  " + "─" * 40)
     print()
 
 if __name__ == '__main__':

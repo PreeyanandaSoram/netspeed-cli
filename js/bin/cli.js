@@ -40,56 +40,56 @@ async function downloadTest() {
     'https://speed.cloudflare.com/__down?bytes=10000000',
     'https://proof.ovh.net/files/10Mb.dat'
   ];
-  
+
   let bestSpeed = 0;
-  
+
   for (const url of servers) {
     try {
       const startTime = Date.now();
-      const response = await axios.get(url, { 
+      const response = await axios.get(url, {
         responseType: 'stream',
         timeout: 10000,
         httpsAgent: new https.Agent({ rejectUnauthorized: false })
       });
-      
+
       let downloaded = 0;
       const stopSpinner = showSpinner('Testing download speed...');
-      
+
       response.data.on('data', (chunk) => {
         downloaded += chunk.length;
         const elapsed = (Date.now() - startTime) / 1000;
         const speedMbps = ((downloaded * 8) / MB / elapsed).toFixed(2);
-        
+
         const progress = Math.min((elapsed / (TEST_DURATION / 1000)) * 100, 100);
         clearLine();
         process.stdout.write(drawProgressBar(progress, chalk.yellow(`${speedMbps} Mbps`)));
       });
-      
+
       await new Promise((resolve, reject) => {
         response.data.on('end', resolve);
         response.data.on('error', reject);
       });
-      
+
       const elapsed = (Date.now() - startTime) / 1000;
       const speedMbps = ((downloaded * 8) / MB / elapsed);
-      
+
       if (speedMbps > bestSpeed) bestSpeed = speedMbps;
-      
+
       stopSpinner();
       clearLine();
-      
+
       if (Date.now() - startTime >= TEST_DURATION) break;
     } catch (e) {
       continue;
     }
   }
-  
+
   return bestSpeed.toFixed(2);
 }
 
 async function pingTest() {
   const times = [];
-  
+
   for (let i = 0; i < 3; i++) {
     const start = Date.now();
     try {
@@ -99,7 +99,7 @@ async function pingTest() {
       times.push(100);
     }
   }
-  
+
   if (times.length === 0) return 'N/A';
   times.sort((a, b) => a - b);
   return times[Math.floor(times.length / 2)];
@@ -107,9 +107,9 @@ async function pingTest() {
 
 function printHeader() {
   console.log();
-  console.log(chalk.cyan.bold('   ╔════════════════════════════════════════╗'));
-  console.log(chalk.cyan.bold('   ║') + chalk.white.bold('           NETSPEED CLI v1.0            ') + chalk.cyan.bold('║'));
-  console.log(chalk.cyan.bold('   ╚════════════════════════════════════════╝'));
+  console.log(chalk.cyan.bold('┌──────────────────┐'));
+  console.log(chalk.cyan.bold('│') + chalk.white.bold(' NETSPEED CLI v1 ') + chalk.cyan.bold('│'));
+  console.log(chalk.cyan.bold('└──────────────────┘'));
   console.log();
 }
 
@@ -119,43 +119,38 @@ function printResult(type, value, icon) {
     upload: chalk.magenta,
     ping: chalk.yellow
   };
-  
-  const label = type.toUpperCase();
-  const borderLine = '─'.repeat(31 - label.length);
-  const resultStr = `${icon} ${value}`;
-  const valuePadding = ' '.repeat(Math.max(0, 31 - resultStr.length));
-  
+
   console.log();
-  console.log(`   ${chalk.white('┌─ ' + label + ' ' + borderLine + '┐')}`);
-  console.log(chalk.white('   │ ') + colors[type](resultStr) + valuePadding + chalk.white('│'));
-  console.log(chalk.white('   └' + '─'.repeat(39) + '┘'));
+  console.log(`  ${chalk.white('┌─ ' + type.toUpperCase() + ' ─────────────┐')}`);
+  console.log(chalk.white('  │ ') + colors[type](`${icon} ${value}`) + ' '.repeat(15 - value.toString().length) + chalk.white('│'));
+  console.log(chalk.white('  └' + '─'.repeat(20) + '┘'));
 }
 
 async function main() {
   printHeader();
-  
+
   console.log(chalk.gray('  Starting speed test...\n'));
-  
+
   const pingStop = showSpinner('Measuring ping...');
   const ping = await pingTest();
   pingStop();
   clearLine();
   printResult('ping', `${ping} ms`, '⚡');
-  
+
   const downloadStop = showSpinner('Testing download speed...');
   const download = await downloadTest();
   downloadStop();
   clearLine();
   printResult('download', `${download} Mbps`, '📥');
-  
+
   const uploadStop = showSpinner('Testing upload speed...');
   const upload = (parseFloat(download) * 0.3).toFixed(2);
   uploadStop();
   clearLine();
   printResult('upload', `${upload} Mbps`, '📤');
-  
+
   console.log();
-  console.log(chalk.gray('   ' + '─'.repeat(40)));
+  console.log(chalk.gray('  ' + '─'.repeat(40)));
   console.log();
 }
 
