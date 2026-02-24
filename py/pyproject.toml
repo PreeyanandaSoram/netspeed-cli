@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "netspeed"
+name = "netspeed-test"
 version = "1.0.0"
 description = "Internet speed test CLI tool"
 authors = [{name = "Preeyananda Soram"}]
@@ -18,4 +18,4 @@ dependencies = [
 netspeed = "netspeed:main"
 
 [project.urls]
-Homepage = "https://github.com/PreeyanandaSoram/netspeed-cli"
+Homepage = "https://github.com/PreeyanandaSoram/netspeed-test-cli"

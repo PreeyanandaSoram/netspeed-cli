@@ -1,6 +1,6 @@
 {
   "name": "netspeed-test-cli",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Internet speed test CLI tool",
   "bin": {
     "netspeed": "bin/cli.js"

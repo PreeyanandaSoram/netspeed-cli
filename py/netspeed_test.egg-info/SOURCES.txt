@@ -1,0 +1,9 @@
+pyproject.toml
+setup.py
+netspeed/__init__.py
+netspeed_test.egg-info/PKG-INFO
+netspeed_test.egg-info/SOURCES.txt
+netspeed_test.egg-info/dependency_links.txt
+netspeed_test.egg-info/entry_points.txt
+netspeed_test.egg-info/requires.txt
+netspeed_test.egg-info/top_level.txt

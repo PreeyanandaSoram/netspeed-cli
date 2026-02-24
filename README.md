@@ -33,7 +33,7 @@ npm install -g netspeed-test-cli
 
 ### Python (pip)
 ```bash
-pip install netspeed
+pip install netspeed-test
 ```
 
 ## 🚀 Usage
