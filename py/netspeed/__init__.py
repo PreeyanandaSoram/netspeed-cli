@@ -17,7 +17,7 @@ except ImportError:
 
 MB = 1024 * 1024
 TEST_DURATION = 5
-VERSION = "1.4.0"
+VERSION = "1.4.2"
 
 frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 frame_idx = 0
