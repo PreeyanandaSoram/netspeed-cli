@@ -126,34 +126,6 @@ function printResult(type, value, icon) {
   console.log(chalk.white('  └' + '─'.repeat(20) + '┘'));
 }
 
-async function main() {
-  printHeader();
-
-  console.log(chalk.gray('  Starting speed test...\n'));
-
-  const pingStop = showSpinner('Measuring ping...');
-  const ping = await pingTest();
-  pingStop();
-  clearLine();
-  printResult('ping', `${ping} ms`, '⚡');
-
-  const downloadStop = showSpinner('Testing download speed...');
-  const download = await downloadTest();
-  downloadStop();
-  clearLine();
-  printResult('download', `${download} Mbps`, '📥');
-
-  const uploadStop = showSpinner('Testing upload speed...');
-  const upload = (parseFloat(download) * 0.3).toFixed(2);
-  uploadStop();
-  clearLine();
-  printResult('upload', `${upload} Mbps`, '📤');
-
-  console.log();
-  console.log(chalk.gray('  ' + '─'.repeat(40)));
-  console.log();
-}
-
 async function runSpeedTest() {
   console.log(chalk.gray('  Starting speed test...\n'));
 
@@ -250,9 +222,8 @@ async function main() {
       break;
     case '2':
       showVersion();
-      const readline = await import('readline');
-      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-      rl.question('', () => { rl.close(); main(); });
+      await waitForEnter();
+      await main();
       break;
     case '3':
       await updatePackage();
@@ -262,9 +233,17 @@ async function main() {
       process.exit(0);
     default:
       console.log(chalk.red('  Invalid choice. Press ENTER to try again.'));
-      const rl = (await import('readline')).createInterface({ input: process.stdin, output: process.stdout });
-      rl.question('', () => { rl.close(); main(); });
+      await waitForEnter();
+      await main();
   }
+}
+
+async function waitForEnter() {
+  const readline = await import('readline');
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return new Promise((resolve) => {
+    rl.question('', () => { rl.close(); resolve(); });
+  });
 }
 
 main().catch(console.error);

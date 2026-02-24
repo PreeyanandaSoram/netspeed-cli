@@ -2,9 +2,9 @@
 
 import sys
 import time
+import subprocess
 import requests
 import threading
-import socket
 
 try:
     from colorama import init, Fore, Style
@@ -17,6 +17,7 @@ except ImportError:
 
 MB = 1024 * 1024
 TEST_DURATION = 5
+VERSION = "1.3.0"
 
 frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 frame_idx = 0
@@ -57,10 +58,7 @@ def ping_test():
     return int(times[len(times) // 2])
 
 def download_test():
-    urls = [
-        'https://speed.cloudflare.com/__down?bytes=10000000',
-    ]
-    
+    urls = ['https://speed.cloudflare.com/__down?bytes=10000000']
     best_speed = 0
     
     for url in urls:
@@ -95,25 +93,32 @@ def download_test():
 
 def print_header():
     print()
-    print(f"{Fore.CYAN}{Style.BRIGHT}╔════════════════════════════════════════╗")
-    print(f"{Fore.CYAN}{Style.BRIGHT}║{Style.BRIGHT}{'         NETSPEED CLI v1.0         '}{Fore.CYAN}{Style.BRIGHT}║")
-    print(f"{Fore.CYAN}{Style.BRIGHT}╚════════════════════════════════════════╝")
+    print(f"{Fore.CYAN}{Style.BRIGHT}┌──────────────────┐")
+    print(f"{Fore.CYAN}{Style.BRIGHT}│{Style.BRIGHT} NETSPEED CLI v1 {Fore.CYAN}{Style.BRIGHT}│")
+    print(f"{Fore.CYAN}{Style.BRIGHT}└──────────────────┘")
     print()
 
 def print_result(type_, value, icon):
-    colors = {
-        'download': Fore.GREEN,
-        'upload': Fore.MAGENTA,
-        'ping': Fore.YELLOW
-    }
+    colors = {'download': Fore.GREEN, 'upload': Fore.MAGENTA, 'ping': Fore.YELLOW}
     color = colors.get(type_, Fore.WHITE)
     print()
-    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────────────┐")
-    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (25 - len(str(value))) + f"{Fore.WHITE}│")
-    print(f"  {Fore.WHITE}└" + "─" * 36 + "┘")
+    print(f"  {Fore.WHITE}┌─ {type_.upper()} ─────────────┐")
+    print(f"  {Fore.WHITE}│ {color}{icon} {value}" + " " * (15 - len(str(value))) + f"{Fore.WHITE}│")
+    print(f"  {Fore.WHITE}└" + "─" * 20 + "┘")
 
-def main():
+def show_menu():
     print_header()
+    print(f"{Fore.WHITE}  ┌──────────────────────────┐")
+    print(f"{Fore.WHITE}  │{Fore.CYAN}      SELECT OPTION      {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  ├──────────────────────────┤")
+    print(f"{Fore.WHITE}  │ {Fore.GREEN}1.{Fore.WHITE}  Run Speed Test    {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  │ {Fore.YELLOW}2.{Fore.WHITE}  View Version     {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  │ {Fore.CYAN}3.{Fore.WHITE}  Update           {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  │ {Fore.RED}4.{Fore.WHITE}  Exit             {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  └──────────────────────────┘")
+    print()
+
+def run_speed_test():
     print(f"{Fore.GRAY}  Starting speed test...\n")
     
     spinner = spin("Measuring ping...")
@@ -136,6 +141,47 @@ def main():
     print()
     print(f"{Fore.GRAY}  " + "─" * 40)
     print()
+    input(f"{Fore.GRAY}  Press ENTER to continue...")
+
+def show_version():
+    print(f"{Fore.WHITE}  ┌──────────────────────────┐")
+    print(f"{Fore.WHITE}  │{Fore.CYAN}       VERSION INFO       {Fore.WHITE}│")
+    print(f"{Fore.WHITE}  ├──────────────────────────┤")
+    print(f"  │  netspeed-cli: {Fore.GREEN}{VERSION}{' ' * (15 - len(VERSION))}{Fore.WHITE}│")
+    import platform
+    print(f"  │  Python:       {Fore.GREEN}{platform.python_version()}{' ' * (15 - len(platform.python_version()))}{Fore.WHITE}│")
+    print(f"{Fore.WHITE}  └──────────────────────────┘")
+    print()
+    input(f"{Fore.GRAY}  Press ENTER to continue...")
+
+def update_package():
+    print(f"{Fore.CYAN}  Checking for updates...\n")
+    try:
+        subprocess.run(['pip', 'install', '-U', 'netspeed'], check=True)
+        print(f"{Fore.GREEN}\n  ✓ Update successful!")
+    except:
+        print(f"{Fore.RED}\n  ✗ Update failed. Try running: pip install -U netspeed")
+    
+    input(f"{Fore.GRAY}\n  Press ENTER to continue...")
+
+def main():
+    while True:
+        show_menu()
+        choice = input(f"{Fore.GRAY}  Enter your choice: {Fore.WHITE}").strip()
+        print()
+        
+        if choice == '1':
+            run_speed_test()
+        elif choice == '2':
+            show_version()
+        elif choice == '3':
+            update_package()
+        elif choice == '4':
+            print(f"{Fore.GRAY}  Goodbye! 👋\n")
+            break
+        else:
+            print(f"{Fore.RED}  Invalid choice. Press ENTER to try again.")
+            input()
 
 if __name__ == '__main__':
     try:
